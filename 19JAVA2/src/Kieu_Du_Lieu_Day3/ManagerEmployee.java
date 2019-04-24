@@ -7,7 +7,7 @@ public class ManagerEmployee {
 	public static Scanner scanner = new Scanner(System.in);
 	public static int inputNumber=0;
 	public static int employNumber ;
-	public static Employee[] employees;
+	public static Employee employees[];
 	
 	
 	public static void main(String[] args) {
@@ -15,8 +15,7 @@ public class ManagerEmployee {
 		showMenu();
 		System.out.println("The program end!!!");
 	}
-	
-	
+
 	
 	public static void showMenu()
 	{
@@ -128,10 +127,7 @@ public class ManagerEmployee {
 		{
 			if(employees[i].getName().equals(name)==true) {
 				employees[i].Show();
-			}
-			
-			
-			
+			}	
 		}
 	}
 	public static void Update(String name)

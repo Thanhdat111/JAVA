@@ -49,7 +49,7 @@ public class Employee {
 		 
 		 public void Show()
 		 {
-			 System.out.println(getName() +" " + this.getAge()+ " " +this.getSalary() + " " +job.getName());
+			 System.out.println(this.getName() +" " + this.getAge()+ " " +this.isMarried()+"  "+this.getSalary() + " " +job.getName());
 		 }
 		
 }
