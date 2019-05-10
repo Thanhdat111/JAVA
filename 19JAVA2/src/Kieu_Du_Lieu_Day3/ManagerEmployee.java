@@ -1,13 +1,15 @@
 package Kieu_Du_Lieu_Day3;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 //them tim kiem
 //them sua tat ca khi cung ten
-public class ManagerEmployee {
+public class ManagerEmployee implements EmployeeInterFace {
 	public static Scanner scanner = new Scanner(System.in);
 	public static int inputNumber=0;
 	public static int employNumber ;
-	public static Employee employees[];
+	public static List<Employee> employees = new LinkedList<Employee>(); ;
 	
 	
 	public static void main(String[] args) {
@@ -19,7 +21,7 @@ public class ManagerEmployee {
 	
 	public static void showMenu()
 	{
-		
+		ManagerEmployee manager = new ManagerEmployee();
 		do {
 			System.out.println("-------------------------");
 			System.out.println("Choose one number below");
@@ -34,11 +36,11 @@ public class ManagerEmployee {
 			
 			switch(inputNumber) {
 			case 1:
-				addEmployee();
+				manager.addEmployee(employees);
 				break;
 			case 2:
 				if(employNumber!=0)
-				show();
+					manager.show(employees);
 				else
 					System.out.println("Input employee !");
 					showMenu();
@@ -53,13 +55,13 @@ public class ManagerEmployee {
 				System.out.println("---------------");
 				System.out.println("List was found ");
 				System.out.println("---------------");
-				Seach(name);
+				manager.Seach(employees,name);
 				break;
 			case 5:
 				scanner.nextLine();
 				System.out.println("Input name");
 				String na = scanner.nextLine();
-				Update(na);
+				manager.Update(employees,na);
 			default:
 				System.out.println("you inputNumber wrong,please input again !!");
 				break;
@@ -77,71 +79,83 @@ public class ManagerEmployee {
 		switch(number)
 		{
 		case 1: showMenu();
-		show();
 		break;
 		case 0:
 			break;
 		}
 	}
-	public static void addEmployee() {
+
+
+	@Override
+	public void addEmployee(List<Employee> list) {
+		// TODO Auto-generated method stub
 		//Employee employee = new Employee(Name, Id, Salary, age, Married, job)
-		System.out.println("How many people you want to input");
-		employNumber = scanner.nextInt();
+				System.out.println("How many people you want to input");
+				employNumber = scanner.nextInt();
+				
+				for(int i=0;i<employNumber;i++)
+				{
+				System.out.println("Nhap vao id :");
+				int Id = scanner.nextInt();
+				System.out.println("Nhap vao ten :");
+				scanner.nextLine();
+				String name = scanner.nextLine();
+				System.out.println("Nhap vao tuoi ");
+				int age = scanner.nextInt();
+				System.out.println("nhap tien luong");
+				double salary = scanner.nextDouble();
+				//System.out.println("nhap gioi tinh ");
+				//boolean gennder =scanner.nextBoolean();
+				System.out.println("name of Job");
+				String nameJob = scanner.next();
+				Job job = new Job(i, nameJob);
+				Employee emp = new Employee(name, Id, salary, age, true, job);
+				employees.add(emp);
+				}
 		
-		employees = new Employee[employNumber];
-		
-		for(int i=0;i<employees.length;i++)
-		{
-		System.out.println("Nhap vao id :");
-		int Id = scanner.nextInt();
-		System.out.println("Nhap vao ten :");
-		scanner.nextLine();
-		String name = scanner.nextLine();
-		System.out.println("Nhap vao tuoi ");
-		int age = scanner.nextInt();
-		System.out.println("nhap tien luong");
-		double salary = scanner.nextDouble();
-		//System.out.println("nhap gioi tinh ");
-		//boolean gennder =scanner.nextBoolean();
-		System.out.println("name of Job");
-		String nameJob = scanner.next();
-		Job job = new Job(i, nameJob);
-		Employee emp = new Employee(name, Id, salary, age, true, job);
-		employees[i] = emp;
-		}
 	}
-	public static void show()
-	{
+
+
+	@Override
+	public void show(List<Employee> list) {
+		// TODO Auto-generated method stub
 		System.out.println("--------------");
 		System.out.println("LIST EMPLOYEE");
 		System.out.println("--------------");
-		for(int i=0;i<employees.length;i++)
-		{
-			employees[i].Show();
+		for (Employee emp : list) {
+			emp.Show();
 		}
 	}
-	public static void Seach(String name)
-	{
-		
-		for(int i=0;i<employees.length;i++)
-		{
-			if(employees[i].getName().equals(name)==true) {
-				employees[i].Show();
-			}	
-		}
+
+
+	@Override
+	public void Seach(List<Employee> list, String name) {
+		// TODO Auto-generated method stub
+		 for (Employee emp : list) {
+			 if(emp.getName().equals(name)) {
+				 emp.Show();
+				 break;
+			 }
+		 }
 	}
-	public static void Update(String name)
-	{
+
+
+
+	@Override
+	public void Update(List<Employee> list, String name) {
+		// TODO Auto-generated method stub
 		System.out.println("Update Salary");
 		double salary = scanner.nextDouble();
-		for(int i=0;i<employees.length;i++)
-		{
-			if(employees[i].getName().equals(name)==true) {
-				
-				employees[i].setSalary(salary);
-				System.out.println("Done Update");
+		for( Employee emp : list) {
+			if(emp.getName().equals(name)){
+				emp.setSalary(salary);
+				System.out.println("DONE UPDATE !");
+				break;
 			}
 		}
+		
+		
 	}
+
 
 }
